@@ -88,17 +88,22 @@ export default function App() {
         : `${API_URL}/inadimplentes`;
       const method = editingItem ? 'PUT' : 'POST';
 
-      await fetch(url, {
+      const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(item),
       });
 
-      fetchData();
+      if (!response.ok) {
+        throw new Error(`Erro do servidor: ${response.statusText}`);
+      }
+
+      await fetchData();
       setIsModalOpen(false);
       setEditingItem(null);
     } catch (error) {
       console.error('Erro ao salvar:', error);
+      alert('Falha ao salvar dados. Verifique se o servidor backend está rodando e se o Prisma foi inicializado corretamente.');
     }
   };
 
