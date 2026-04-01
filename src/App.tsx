@@ -26,7 +26,7 @@ import {
 import type { Inadimplente, Status } from './types';
 import './index.css';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 const CHART_DATA = [
   { month: 'Jan', valor: 4500 },
